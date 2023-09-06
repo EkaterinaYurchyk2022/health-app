@@ -13,7 +13,7 @@ const TabletsNameEnter = ({text, setText}:PropsType) => {
             placeholderTextColor="#979797"
             value={text}
             onChangeText={text => setText(text)}
-            style={{backgroundColor: 'white', color: 'white', borderRadius: 4, borderStyle: 'solid'}}
+            style={{backgroundColor: 'white', borderRadius: 4,}}
         />
     );
 };

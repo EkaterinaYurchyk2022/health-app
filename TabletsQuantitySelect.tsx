@@ -1,7 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {TextInput} from 'react-native-paper';
+import {QuantityChoice, Icon, TextLabel} from './Styles';
 
 type PropsType = {
     quantity: number
@@ -11,21 +12,16 @@ type PropsType = {
 const TabletsQuantitySelect = ({quantity, handleQuantityChange}:PropsType) => {
     return (
         <View>
-            <Text style={{fontSize: 12, }}>Количество таблеток</Text>
-            <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                height: 65,
-                backgroundColor: 'white',
-            }}>
-                <View style={{
-                    width: 30,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
+
+            <TextLabel style={{fontSize: 12,}}>Количество таблеток</TextLabel>
+
+            <QuantityChoice>
+
+                <Icon>
                     <Ionicons name="md-remove-circle-outline" size={24} color="black"
                               onPress={() => handleQuantityChange(quantity - 1)}/>
-                </View>
+                </Icon>
+
                 <TextInput
                     placeholderTextColor="#979797"
                     value={quantity.toString()}
@@ -41,15 +37,14 @@ const TabletsQuantitySelect = ({quantity, handleQuantityChange}:PropsType) => {
                         fontSize: 15,
                     }}
                 />
-                <View style={{
-                    width: 30,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
+
+                <Icon>
                     <Ionicons name="add-circle-outline" size={24} color="black"
                               onPress={() => handleQuantityChange(quantity + 1)}/>
-                </View>
-            </View>
+                </Icon>
+
+            </QuantityChoice>
+
         </View>
     );
 };

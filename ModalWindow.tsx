@@ -1,12 +1,12 @@
 import React from 'react';
-import {Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Modal, Text} from 'react-native';
 import ActionSelect from './ActionSelect';
 import TabletsNameEnter from './TabletsNameEnter';
 import TabletsQuantitySelect from './TabletsQuantitySelect';
 import DosageSelect from './DosageSelect';
+import {CloseButton, MedicineChoice, ModalContainer, ModalContent, ModalTitle, SaveButton} from './Styles';
 
 type PropsType = {
-    dosage: string
     openModal: boolean
     setOpenModal: (value: boolean) => void
     handleItemPress: (selectedItem:string) => void
@@ -38,7 +38,6 @@ const ModalWindow = ({
                          dosageExpanded,
                          handleDosagePress,
                          handleDosageExpandPress,
-                         dosage
                      }: PropsType) => {
     return (
         <Modal
@@ -47,47 +46,38 @@ const ModalWindow = ({
             visible={openModal}
             onRequestClose={() => setOpenModal(false)}
         >
-            <View style={styles.modalContainer}>
-                <View style={styles.modalContent}>
-                    <TouchableOpacity style={{alignItems: 'flex-end'}} onPress={() => setOpenModal(false)}>
+            <ModalContainer>
+
+                <ModalContent>
+
+                    <CloseButton onPress={() => setOpenModal(false)}>
                         <Image source={require('./assets/x.png')}/>
-                    </TouchableOpacity>
-                    <Text style={{textAlign: 'center', fontWeight: '600', fontSize: 16, marginBottom: 30}}>Добавить
-                        напоминание</Text>
+                    </CloseButton>
+
+                    <ModalTitle>Добавить напоминание</ModalTitle>
+
                     <ActionSelect handleItemPress={(val)=>handleItemPress(val)} handlePress={handlePress} expanded={expanded}
                                   selectedItem={selectedItem}/>
+
                     <TabletsNameEnter text={text} setText={setText}/>
-                    <View style={{
-                        marginTop: 10,
-                        justifyContent: 'space-between',
-                        flexDirection: 'row',
-                    }}>
+
+                    <MedicineChoice>
                         <TabletsQuantitySelect quantity={quantity} handleQuantityChange={handleQuantityChange}/>
                         <DosageSelect selectedDosage={selectedDosage} dosageExpanded={dosageExpanded}
                                       handleDosagePress={handleDosagePress}
                                       handleDosageExpandPress={handleDosageExpandPress}/>
-                    </View>
-                </View>
-            </View>
+                    </MedicineChoice>
+
+                    <SaveButton>
+                        <Text style={{color:'white', fontSize:12}}>Сохранить</Text>
+                    </SaveButton>
+
+                </ModalContent>
+
+            </ModalContainer>
+
         </Modal>
     );
 };
 
 export default ModalWindow;
-
-const styles = StyleSheet.create({
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-        backgroundColor: '#F3F3F3',
-        width: '100%',
-        height: '50%',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        padding: 20,
-    },
-})
